@@ -10,6 +10,14 @@
     "deepseek-harness",
     "prompt-engineering"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Xyvanlabs/dsh-prompt-enhancer.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Xyvanlabs/dsh-prompt-enhancer/issues"
+  },
+  "homepage": "https://github.com/Xyvanlabs/dsh-prompt-enhancer#readme",
   "main": "lib/index.js",
   "scripts": {
     "test": "node test/host.mjs && node test/client.mjs"
