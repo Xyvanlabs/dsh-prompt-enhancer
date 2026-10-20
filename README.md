@@ -121,16 +121,22 @@ locale/zh.json        插件卡片的标题与描述（中文）
 locale/en.json        同上（英文）
 icon.svg              插件图标
 docs/                 文档配图
+test/                 两个离线冒烟测试（host / client）
 ```
 
 ## 开发与调试
 
 ### 离线测试（不需要跑起 DSH）
 
-仓库外有两个配套脚本（见提交历史里的 `_tools/`，也可以自己照着写）：
+```bash
+node test/host.mjs     # 主机半边：假 ctx / 假 llm / 假 HTTP 对象
+node test/client.mjs   # 客户端半边：伪造 __ModuleLoader__ 与 stub React
+```
 
-- `test-prompt-enhancer-host.mjs` —— 用假 `ctx`（捕获 `webServer.register`、假 `llm.stream`、假 `agentDefaultModel`）跑 `apply()`，断言路由、鉴权、清洗、错误码。
-- `test-prompt-enhancer-client.mjs` —— 伪造 `window.__ModuleLoader__` 与 stub React，断言 bundle 形态、插槽注册、三态切换。
+- `test/host.mjs` —— 捕获 `webServer.register` 拿到路由，用假 `llm.stream`、假 `agentDefaultModel` 跑 `apply()`，断言：路由注册、回环鉴权、入参长度、请求结构与模型参数、结果清洗、上游错误映射、未知端点 404。
+- `test/client.mjs` —— 伪造 `window.__ModuleLoader__`、stub React 与槽位上下文，断言：bundle 形态与导出、插槽注册参数、组件的三态切换、取消与还原、失败不写回。
+
+两者都是纯 Node 脚本（`node:test` 之外的零依赖写法），退出码非 0 即失败。
 
 ### 改完客户端代码怎么生效（不用重启整个 DSH）
 

@@ -11,6 +11,9 @@
     "prompt-engineering"
   ],
   "main": "lib/index.js",
+  "scripts": {
+    "test": "node test/host.mjs && node test/client.mjs"
+  },
   "exports": {
     ".": {
       "default": "./lib/index.js"
@@ -43,6 +46,7 @@
     "lib",
     "locale",
     "docs",
+    "test",
     "cordis.patch.yml",
     "icon.svg",
     "README.md",
