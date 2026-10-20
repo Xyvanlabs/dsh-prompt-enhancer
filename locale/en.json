@@ -1,0 +1,6 @@
+{
+  "meta": {
+    "title": "Prompt Enhancer",
+    "description": "Adds a prompt-enhance button at the composer's bottom-right: rewrites your draft into a clearer, more specific prompt, with cancel and revert."
+  }
+}
